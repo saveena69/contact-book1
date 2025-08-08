@@ -1,0 +1,62 @@
+<div class="container">
+  <h2>📒 Contact Book</h2>
+
+  <!-- Search Bar -->
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="🔍 Search by name..."
+    class="search-bar"
+  />
+
+  <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="name"
+        name="name"
+        placeholder="Enter your name"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input
+        type="tel"
+        id="phone"
+        [(ngModel)]="phone"
+        name="phone"
+        placeholder="Enter contact number"
+        required
+      />
+    </div>
+
+    <button type="submit">Add Contact</button>
+  </form>
+
+  <table *ngIf="filteredContacts.length > 0" class="contact-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of filteredContacts; let i = index">
+        <td>{{ c.name }}</td>
+        <td>{{ c.phone }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteContact(i)">❌</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="filteredContacts.length === 0 && contacts.length > 0">
+    No contacts found.
+  </p>
+</div>
